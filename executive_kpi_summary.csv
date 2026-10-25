@@ -1,0 +1,8 @@
+metric_name,metric_value
+Total Monitored SKUs,1091
+Total Projected Stockout Risk Count,454
+Critical Stockout Alerts (Stock < SS),303
+Reorder Required Alerts (Stock < ROP),151
+Healthy SKUs,637
+Average Forecast Accuracy (1 - MAPE),96.6%
+Total Monitored Inventory Valuation,"$533,195.86"

@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+
+# DuckDB temporary database files
+*.duckdb
+*.duckdb.wal
+
+# Large raw data dumps (re-downloadable via src/ingestion/download_dataset.py)
+data/raw/olist_orders_dataset.csv
+data/raw/olist_order_items_dataset.csv
+data/raw/raw_supply_chain_transactions.csv
+
+# Temporary Power BI logs
+*.log
+*.tmp
+.DS_Store
+Thumbs.db

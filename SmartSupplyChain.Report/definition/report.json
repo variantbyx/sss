@@ -1,0 +1,14 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/1.0.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU02",
+      "version": "5.56",
+      "type": 2
+    }
+  },
+  "settings": {
+    "useNewFilterPaneExperience": true,
+    "allowChangeFilterTypes": true
+  }
+}

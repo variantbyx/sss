@@ -1,0 +1,6 @@
+product_category,historical_days,total_units_sold,avg_daily_demand,daily_std_dev,safety_stock_units,reorder_point_units
+bed_bath_table,594,11089,18.86,12.56,74,319
+health_beauty,594,9585,16.83,10.92,64,282
+sports_leisure,595,8573,14.33,8.74,52,238
+computers_accessories,586,7760,13.11,10.49,62,232
+furniture_decor,597,8229,13.83,9.43,56,235

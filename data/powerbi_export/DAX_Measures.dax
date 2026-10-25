@@ -1,0 +1,72 @@
+/*
+================================================================================
+POWER BI DAX MEASURES: SMART SUPPLY CHAIN ANALYTICS
+================================================================================
+*/
+
+// 1. Forecast Variance % (As requested)
+Forecast Variance % = 
+DIVIDE(
+    SUM(DemandForecast[yhat]) - SUM(DailyDemand[actual_units]), 
+    SUM(DailyDemand[actual_units]), 
+    0
+) * 100
+
+// 2. Forecast Accuracy % (1 - MAPE)
+Forecast Accuracy % = 
+MAX(
+    0, 
+    100 - DIVIDE(
+        SUMX(
+            FILTER(DemandForecast, NOT(ISBLANK(DemandForecast[actual_units])) && DemandForecast[actual_units] > 0), 
+            ABS(DemandForecast[actual_units] - DemandForecast[yhat])
+        ), 
+        SUMX(
+            FILTER(DemandForecast, NOT(ISBLANK(DemandForecast[actual_units])) && DemandForecast[actual_units] > 0), 
+            DemandForecast[actual_units]
+        ), 
+        0
+    ) * 100
+)
+
+// 3. Total Projected Stockout Risk Count
+Total Projected Stockout Risk Count = 
+CALCULATE(
+    COUNTROWS(SKUInventory), 
+    SKUInventory[stockout_risk_flag] = 1
+)
+
+// 4. Critical Stockout Risk Count (Current Stock < Safety Stock)
+Critical Stockout Count = 
+CALCULATE(
+    COUNTROWS(SKUInventory), 
+    SKUInventory[reorder_alert_status] = "CRITICAL - STOCKOUT RISK"
+)
+
+// 5. Total Reorder Alerts (Current Stock < Reorder Point)
+Reorder Alerts Count = 
+CALCULATE(
+    COUNTROWS(SKUInventory), 
+    SKUInventory[reorder_alert_status] = "REORDER NOW"
+)
+
+// 6. Healthy Inventory Count
+Healthy Inventory Count = 
+CALCULATE(
+    COUNTROWS(SKUInventory), 
+    SKUInventory[reorder_alert_status] = "HEALTHY"
+)
+
+// 7. Total Inventory Valuation ($)
+Total Inventory Valuation = 
+SUM(SKUInventory[inventory_value_usd])
+
+// 8. Reorder Alert Conditional Color Formatting Measure
+Reorder Alert Color = 
+SWITCH(
+    SELECTEDVALUE(SKUInventory[reorder_alert_status]),
+    "CRITICAL - STOCKOUT RISK", "#E74C3C",  // Red
+    "REORDER NOW", "#E67E22",              // Amber
+    "HEALTHY", "#27AE60",                  // Green
+    "#95A5A6"                              // Default Gray
+)
